@@ -1,4 +1,4 @@
-# ElizaOS - Runtime with tsx (no build needed)
+# ElizaOS - Runtime with Bun
 FROM oven/bun:latest
 
 WORKDIR /app
@@ -12,12 +12,9 @@ COPY . .
 # Install dependencies
 RUN bun install
 
-# Install tsx for TypeScript execution
-RUN bun add -g tsx
-
 # Expose port
 EXPOSE 3000
 
-# Start directly with tsx (no build step)
+# Start with bun
 ENV NODE_ENV=production
-CMD ["bun", "run", "--bun", "packages/cli/src/index.ts", "start"]
+CMD ["bun", "start"]
