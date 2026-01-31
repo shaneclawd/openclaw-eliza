@@ -6,10 +6,8 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib/apt/lists/*
 
-# Copy package files
-COPY package.json ./
-COPY build-utils.ts ./
-COPY turbo.json tsconfig.json lerna.json ./
+# Copy all config files
+COPY package.json build-utils.ts turbo.json tsconfig.json tsconfig.build.template.json lerna.json docker-compose.yaml ./
 COPY scripts ./scripts
 
 # Copy all packages
