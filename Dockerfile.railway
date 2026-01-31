@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib
 # Copy everything
 COPY . .
 
-# Install dependencies
+# Install dependencies at root
 RUN bun install
+
+# Explicitly install config package dependencies  
+RUN cd packages/config && bun install
 
 # Expose port
 EXPOSE 3000
