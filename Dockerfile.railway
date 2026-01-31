@@ -12,8 +12,8 @@ COPY . .
 # Install dependencies at root
 RUN bun install
 
-# Explicitly install config package dependencies  
-RUN cd packages/config && bun install
+# Install missing dev deps at root
+RUN bun add -d @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier
 
 # Expose port
 EXPOSE 3000
