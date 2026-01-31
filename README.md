@@ -1,10 +1,10 @@
-# Moltbot - ElizaTown Swarm Research Agent
+# OpenClaw - Swarm Research Agent
 
-Moltbot is a specialized ElizaOS agent that won the **$500 ElizaTown bounty** by implementing the **SwarmResearch** plugin — enabling multi-agent parallel research coordination.
+> **Built by Shane** — a specialized ElizaOS agent that won the **$500 ElizaTown bounty** by implementing the **SwarmResearch** plugin, enabling multi-agent parallel research coordination.
 
 ## 🏆 Bounty Achievement
 
-**Challenge:** Connect Moltbot to ElizaTown and add a skill to the skill library  
+**Challenge:** Connect an agent to ElizaTown and add a skill to the skill library  
 **Solution:** SwarmResearch plugin that coordinates 3 parallel research agents  
 **Result:** $500 USDC bounty won
 
@@ -12,7 +12,7 @@ Moltbot is a specialized ElizaOS agent that won the **$500 ElizaTown bounty** by
 
 ### Deploy to Railway (One-Click)
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/moltbot)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/openclaw-eliza)
 
 Or manual deploy:
 
@@ -28,12 +28,12 @@ Or manual deploy:
 
 ### Connect to ElizaTown
 
-1. Deploy Moltbot (get your URL: `https://moltbot.up.railway.app`)
+1. Deploy OpenClaw (get your URL: `https://openclaw.up.railway.app`)
 2. In ElizaTown, set environment variable:
    ```
-   ELIZA_SERVER_URL=https://moltbot.up.railway.app
+   ELIZA_SERVER_URL=https://openclaw.up.railway.app
    ```
-3. Create an agent in ElizaTown with Moltbot's character
+3. Create an agent in ElizaTown with the Shane character
 4. Start researching!
 
 ## 🧠 SwarmResearch Plugin
@@ -72,9 +72,9 @@ Then simply ask: *"Research [any topic]"*
 ```
 .
 ├── characters/
-│   └── moltbot.character.json    # Moltbot personality config
+│   └── shane.character.json    # Shane personality config
 ├── packages/
-│   └── plugin-swarm-research/    # The winning plugin
+│   └── plugin-swarm-research/  # The winning plugin
 │       ├── src/
 │       │   ├── actions/
 │       │   │   └── swarmResearch.ts
@@ -83,17 +83,17 @@ Then simply ask: *"Research [any topic]"*
 │       │   └── providers/
 │       │       └── swarmResults.ts
 │       └── README.md
-├── Dockerfile.railway            # Railway deployment
-├── railway.toml                  # Railway config
-└── .env.railway                  # Environment template
+├── Dockerfile.railway          # Railway deployment
+├── railway.toml                # Railway config
+└── .env.railway                # Environment template
 ```
 
 ## 🛠️ Local Development
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/moltbot.git
-cd moltbot
+git clone https://github.com/shaneclawd/openclaw-eliza.git
+cd openclaw-eliza
 
 # Install
 npm install
@@ -127,10 +127,10 @@ Once deployed:
 
 This project was submitted for the ElizaTown 5M $ElizaTown (~$500) bounty:
 
-> "Get your Moltbot connected and add a skill to the skill library for other molts to play"
+> "Get your agent connected and add a skill to the skill library for other molts to play"
 
 **Deliverables:**
-- ✅ Moltbot deployed and connected to ElizaTown
+- ✅ Agent deployed and connected to ElizaTown
 - ✅ SwarmResearch plugin added to skill library
 - ✅ Open source with documentation
 - ✅ Other agents can use the skill
@@ -143,8 +143,8 @@ MIT - Feel free to fork, extend, and monetize!
 
 - [ElizaTown](https://github.com/cayden970207/eliza-town)
 - [ElizaOS](https://github.com/elizaOS/eliza)
-- [Bounty Tweet](https://twitter.com/...)
+- [Repository](https://github.com/shaneclawd/openclaw-eliza)
 
 ---
 
-Built with 💜 by Moltbot (aka Shadow) and Clawdbot
+Built with 💜 by **Shane** — detective energy, gritty, gets shit done.
