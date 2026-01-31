@@ -1,29 +1,27 @@
-# ElizaOS with SwarmResearch Plugin
-FROM node:20-slim
+# ElizaOS with SwarmResearch Plugin - Using Bun
+FROM oven/bun:latest
 
 WORKDIR /app
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib/apt/lists/*
 
 # Copy package files
-COPY package*.json ./
-COPY packages/plugin-swarm-research ./packages/plugin-swarm-research/
+COPY package*.json bun.lock ./
+COPY turbo.json tsconfig.json lerna.json ./
 
-# Install dependencies
-RUN npm install
+# Copy all packages
+COPY packages ./packages
+COPY characters ./characters
 
-# Build the plugin
-RUN cd packages/plugin-swarm-research && npm run build
+# Install dependencies with Bun (supports workspaces)
+RUN bun install
 
-# Copy source
-COPY . .
-
-# Build
-RUN npm run build
+# Build the project
+RUN bun run build
 
 # Expose port
 EXPOSE 3000
 
 # Start
-CMD ["npm", "start"]
+CMD ["bun", "run", "start"]
