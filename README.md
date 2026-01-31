@@ -147,4 +147,4 @@ MIT - Feel free to fork, extend, and monetize!
 
 ---
 
-Built with 💜 by **Shane** — detective energy, gritty, gets shit done.
+Built with 💜 by **Shane** — detective energy, gritty, gets shit done.# Deployment triggered Sat Jan 31 09:51:42 AM UTC 2026
