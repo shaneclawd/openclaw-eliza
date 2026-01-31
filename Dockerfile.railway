@@ -19,6 +19,9 @@ COPY characters ./characters
 # Install dependencies with Bun (supports workspaces)
 RUN bun install
 
+# Install missing eslint deps for config package
+RUN cd packages/config && bun add -d @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier
+
 # Build the project
 RUN bun run build
 
