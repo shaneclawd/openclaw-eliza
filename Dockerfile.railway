@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib
 
 # Copy package files
 COPY package.json ./
-COPY bunfig.toml ./
 COPY turbo.json tsconfig.json lerna.json ./
 
 # Copy all packages
