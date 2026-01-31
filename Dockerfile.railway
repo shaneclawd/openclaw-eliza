@@ -12,12 +12,23 @@ COPY . .
 # Install dependencies at root
 RUN bun install
 
-# Install missing dev deps at root
-RUN bun add -d @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier
+# Install eslint deps in config package specifically
+RUN cd packages/config && bun add -d @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier
+
+# Build packages (skip config's type generation)
+RUN cd packages/config && bun run build.ts || true
+RUN cd packages/core && bun run build.ts
+RUN cd packages/api-client && bun run build.ts
+RUN cd packages/service-interfaces && bun run build.ts
+RUN cd packages/plugin-sql && bun run build.ts
+RUN cd packages/plugin-dummy-services && bun run build.ts
+RUN cd packages/plugin-swarm-research && bunx tsc
+RUN cd packages/server && bun run build.ts
+RUN cd packages/cli && bun run build.ts
 
 # Expose port
 EXPOSE 3000
 
-# Start with bun
+# Start the CLI directly (bypass turbo)
 ENV NODE_ENV=production
-CMD ["bun", "start"]
+CMD ["bun", "run", "packages/cli/dist/index.js", "start"]
