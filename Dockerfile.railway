@@ -1,0 +1,29 @@
+# ElizaOS with SwarmResearch Plugin
+FROM node:20-slim
+
+WORKDIR /app
+
+# Install dependencies
+RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib/apt/lists/*
+
+# Copy package files
+COPY package*.json ./
+COPY packages/plugin-swarm-research ./packages/plugin-swarm-research/
+
+# Install dependencies
+RUN npm install
+
+# Build the plugin
+RUN cd packages/plugin-swarm-research && npm run build
+
+# Copy source
+COPY . .
+
+# Build
+RUN npm run build
+
+# Expose port
+EXPOSE 3000
+
+# Start
+CMD ["npm", "start"]

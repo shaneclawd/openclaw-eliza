@@ -1,0 +1,17 @@
+{
+  "name": "@elizaos/plugin-swarm-research",
+  "version": "0.1.0",
+  "description": "Multi-agent swarm research plugin for ElizaOS",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@elizaos/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
