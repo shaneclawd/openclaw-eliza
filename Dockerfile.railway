@@ -1,4 +1,4 @@
-# ElizaOS with SwarmResearch Plugin - Using Bun
+# ElizaOS - Production Runtime (Pre-built approach)
 FROM oven/bun:latest
 
 WORKDIR /app
@@ -6,33 +6,20 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib/apt/lists/*
 
-# Copy all config files
-COPY package.json build-utils.ts turbo.json tsconfig.json tsconfig.build.template.json lerna.json docker-compose.yaml ./
-COPY scripts ./scripts
+# Copy everything
+COPY . .
 
-# Copy all packages
-COPY packages ./packages
-COPY characters ./characters
+# Install dependencies (skip postinstall for speed)
+RUN bun install --ignore-scripts
 
-# Install dependencies with Bun (supports workspaces)
-RUN bun install
-
-# Install missing eslint deps for config package
-RUN cd packages/config && bun add -d @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier
-
-# Build packages individually (skip problematic packages)
-RUN cd packages/core && bun run build || true
-RUN cd packages/api-client && bun run build || true
-RUN cd packages/service-interfaces && bun run build || true
-RUN cd packages/plugin-sql && bun run build || true
-RUN cd packages/plugin-dummy-services && bun run build || true
-RUN cd packages/plugin-swarm-research && bun run build
-RUN cd packages/server && bun run build || true
-RUN cd packages/cli && bun run build || true
-# Skip client - it needs uuid types and is not needed for server
+# Build ONLY the essential packages
+RUN cd packages/core && bun run build.ts || true
+RUN cd packages/plugin-swarm-research && bunx tsc --skipLibCheck
+RUN cd packages/server && bun run build.ts || true
+RUN cd packages/cli && bun run build.ts || true
 
 # Expose port
 EXPOSE 3000
 
-# Start
-CMD ["bun", "run", "start"]
+# Start the server directly
+CMD ["bun", "run", "packages/cli/dist/index.js", "start"]
