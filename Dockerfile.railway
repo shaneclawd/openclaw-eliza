@@ -1,4 +1,4 @@
-# ElizaOS - Production Runtime (Pre-built approach)
+# ElizaOS - Runtime with tsx (no build needed)
 FROM oven/bun:latest
 
 WORKDIR /app
@@ -9,17 +9,15 @@ RUN apt-get update && apt-get install -y git python3 make g++ && rm -rf /var/lib
 # Copy everything
 COPY . .
 
-# Install dependencies (skip postinstall for speed)
-RUN bun install --ignore-scripts
+# Install dependencies
+RUN bun install
 
-# Build ONLY the essential packages
-RUN cd packages/core && bun run build.ts || true
-RUN cd packages/plugin-swarm-research && bunx tsc --skipLibCheck
-RUN cd packages/server && bun run build.ts || true
-RUN cd packages/cli && bun run build.ts || true
+# Install tsx for TypeScript execution
+RUN bun add -g tsx
 
 # Expose port
 EXPOSE 3000
 
-# Start the server directly
-CMD ["bun", "run", "packages/cli/dist/index.js", "start"]
+# Start directly with tsx (no build step)
+ENV NODE_ENV=production
+CMD ["bun", "run", "--bun", "packages/cli/src/index.ts", "start"]
