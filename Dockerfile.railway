@@ -20,7 +20,7 @@ RUN bun install
 # Install missing eslint deps for config package
 RUN cd packages/config && bun add -d @eslint/js @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier
 
-# Build packages individually (skip problematic type declarations)
+# Build packages individually (skip problematic packages)
 RUN cd packages/core && bun run build || true
 RUN cd packages/api-client && bun run build || true
 RUN cd packages/service-interfaces && bun run build || true
@@ -29,6 +29,7 @@ RUN cd packages/plugin-dummy-services && bun run build || true
 RUN cd packages/plugin-swarm-research && bun run build
 RUN cd packages/server && bun run build || true
 RUN cd packages/cli && bun run build || true
+# Skip client - it needs uuid types and is not needed for server
 
 # Expose port
 EXPOSE 3000
