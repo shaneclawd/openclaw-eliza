@@ -1,5 +1,5 @@
 import { Plugin } from "@elizaos/core";
-import { swarmResearchAction } from "./actions/swarmResearch";
+import swarmResearchAction from "./actions/swarmResearch";
 import { swarmResultsProvider } from "./providers/swarmResults";
 import { SwarmCoordinatorService } from "./services/swarmCoordinator";
 

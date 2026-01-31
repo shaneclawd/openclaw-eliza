@@ -1,4 +1,4 @@
-import { Service, IAgentRuntime, ServiceType } from "@elizaos/core";
+import { Service, IAgentRuntime } from "@elizaos/core";
 
 interface SwarmTask {
   id: string;
@@ -10,11 +10,18 @@ interface SwarmTask {
 }
 
 export class SwarmCoordinatorService extends Service {
-  static serviceType: ServiceType = "swarm-coordinator" as ServiceType;
+  static serviceType = "swarm-coordinator";
+  capabilityDescription = "Coordinates multi-agent parallel research tasks";
+  
   private activeResearches: Map<string, SwarmTask[]> = new Map();
 
   async initialize(runtime: IAgentRuntime): Promise<void> {
     this.runtime = runtime;
+  }
+
+  async stop(): Promise<void> {
+    // Cleanup if needed
+    this.activeResearches.clear();
   }
 
   async startResearch(queryId: string, tasks: SwarmTask[]): Promise<void> {
@@ -34,11 +41,5 @@ export class SwarmCoordinatorService extends Service {
 
   async getResults(queryId: string): Promise<SwarmTask[]> {
     return this.activeResearches.get(queryId) || [];
-  }
-
-  getState(): any {
-    return {
-      activeResearches: Array.from(this.activeResearches.entries()),
-    };
   }
 }
